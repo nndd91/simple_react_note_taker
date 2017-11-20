@@ -35,16 +35,9 @@ class SideBar extends Component {
   render () {
     return (
       <div style={{backgroundColor: '#eeeeee'}}>
-        <ul style={{listStyleType: 'none', height: '480px', paddingLeft: '0px', overflowY: 'scroll'}}>
+        <ul style={{listStyleType: 'none', height: '520px', paddingLeft: '0px', overflowY: 'scroll'}}>
           {this.renderNotes(this.props.noteList)}
         </ul>
-        <button
-          className='btn btn-primary'
-          onClick={() => this.props.addNewNote()}
-          style={{width: '100%', bottom: '0'}}
-          >
-          New Note
-        </button>
       </div>
     )
   }

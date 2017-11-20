@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import '../../assets/App.css'
 import SideBar from './sidebar'
 import Editor from './editor'
-
+import MarkDown from './markdown'
 class NoteTaker extends Component {
   constructor (props) {
     super(props)
     this.state = {
       noteList: [],
-      activeNoteIndex: ''
+      activeNoteIndex: '',
+      activeEditor: true
     }
   }
 
@@ -52,9 +53,21 @@ class NoteTaker extends Component {
     })
   }
 
+  handleKeyPress (event) {
+    if (event.ctrlKey && event.keyCode === 77) {
+      this.setState({
+        activeEditor: !this.state.activeEditor
+      })
+    }
+  }
+
   render () {
     return (
-      <div className='App'>
+      <div
+        className='App'
+        onKeyDown={(e) => this.handleKeyPress(e)}
+        tabIndex='0'
+      >
         <div style={{display: 'flex', alignItems: 'center', height: '100vh', minWidth: '100vh', justifyContent: 'center'}}>
           <div className='container' style={{backgroundColor: '#eeeeee', borderRadius: '5px', padding: '20px'}}>
             <div className='row'>
@@ -70,11 +83,36 @@ class NoteTaker extends Component {
                 />
               </div>
               <div className='col-xs-9'>
-                <Editor
-                  activeNote={this.state.noteList[this.state.activeNoteIndex]}
-                  handleTitleChange={(e) => this.handleTitleChange(e)}
-                  handleContentChange={(e) => this.handleContentChange(e)}
-                />
+                <div className='row'>
+                  { this.state.activeEditor
+                  ? <Editor
+                    activeNote={this.state.noteList[this.state.activeNoteIndex]}
+                    handleTitleChange={(e) => this.handleTitleChange(e)}
+                    handleContentChange={(e) => this.handleContentChange(e)}
+                  />
+                  : <MarkDown
+                    activeNote={this.state.noteList[this.state.activeNoteIndex]}
+                  />
+                }
+                </div>
+              </div>
+            </div>
+
+            <div className='row'>
+              <div className='col-xs-3'>
+                <button
+                  className='btn btn-primary'
+                  onClick={() => this.addNewNote()}
+                  style={{width: '100%', bottom: '0'}}
+                  >
+                  New Note
+                </button>
+              </div>
+              <div className='col-xs-9'>
+                <ol className='breadcrumb'>
+                  <li><a onClick={() => this.setState({activeEditor: true})}>Editor</a></li>
+                  <li><a onClick={() => this.setState({activeEditor: false})}>Markdown</a></li>
+                </ol>
               </div>
             </div>
           </div>
