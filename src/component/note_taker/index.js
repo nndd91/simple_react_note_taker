@@ -11,6 +11,7 @@ class NoteTaker extends Component {
       activeNoteIndex: '',
       activeEditor: true
     }
+    this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
   componentDidMount () {
@@ -18,6 +19,11 @@ class NoteTaker extends Component {
     if (this.props.name === '') {
       this.props.history.push('/')
     }
+    document.addEventListener('keydown', this.handleKeyPress)
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('keydown', this.handleKeyPress)
   }
 
   addNewNote () {
@@ -55,19 +61,20 @@ class NoteTaker extends Component {
 
   handleKeyPress (event) {
     if (event.ctrlKey && event.keyCode === 77) {
+      console.log('Press Ctrl and M')
       this.setState({
         activeEditor: !this.state.activeEditor
       })
+    }
+    if (event.ctrlKey && event.keyCode === 67) {
+      console.log('Press Ctrl and C')
+      this.addNewNote()
     }
   }
 
   render () {
     return (
-      <div
-        className='App'
-        onKeyDown={(e) => this.handleKeyPress(e)}
-        tabIndex='0'
-      >
+      <div className='App'>
         <div style={{display: 'flex', alignItems: 'center', height: '100vh', minWidth: '100vh', justifyContent: 'center'}}>
           <div className='container' style={{backgroundColor: '#eeeeee', borderRadius: '5px', padding: '20px'}}>
             <div className='row'>
@@ -113,6 +120,17 @@ class NoteTaker extends Component {
                   <li><a onClick={() => this.setState({activeEditor: true})}>Editor</a></li>
                   <li><a onClick={() => this.setState({activeEditor: false})}>Markdown</a></li>
                 </ol>
+              </div>
+            </div>
+
+            <div className='row'>
+              <div className='panel'>
+                <div className='panel-body'>
+                  <small>
+                    <p>Shortcuts</p>
+                    <p>Ctrl + M: Switch Markdown, Ctrl + C: Create new note </p>
+                  </small>
+                </div>
               </div>
             </div>
           </div>

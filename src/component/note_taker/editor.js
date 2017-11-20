@@ -18,6 +18,7 @@ const Editor = (props) => {
           onChange={(e) => props.handleTitleChange(e)}
         />
         <textarea
+          autoFocus
           value={props.activeNote.content}
           style={{'height': '480px', 'width': '100%'}}
           placeholder='Content...'

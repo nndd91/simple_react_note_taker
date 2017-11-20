@@ -56,12 +56,6 @@ class App extends Component {
       name: value
     })
   }
-
-  handleKeyPress = (event) => {
-    if (event.key == 'Enter') {
-      console.log('Press Enter')
-    }
-  }
 }
 
 export default App

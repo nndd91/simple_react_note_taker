@@ -12,7 +12,7 @@ class MarkDown extends Component {
     } else {
       return (
         <div>
-          <div dangerouslySetInnerHTML={{__html: marked(this.props.activeNote.content)}} style={{textAlign: 'left', overflowY: 'scroll', height: '480px'}} />
+          <div dangerouslySetInnerHTML={{__html: marked(this.props.activeNote.content)}} style={{textAlign: 'left', overflowY: 'scroll', height: '480px', backgroundColor: 'white', padding: '10px', borderRadius: '5px'}} />
         </div>
       )
     }
