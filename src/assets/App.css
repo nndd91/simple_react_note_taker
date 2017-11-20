@@ -39,6 +39,15 @@ input:focus.name-input {
   outline: none;
 }
 
+.mark-down-view {
+  text-align: left;
+  overflow-y: scroll;
+  height: 520px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 body {
   color: white;
 }

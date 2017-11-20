@@ -66,8 +66,8 @@ class NoteTaker extends Component {
         activeEditor: !this.state.activeEditor
       })
     }
-    if (event.ctrlKey && event.keyCode === 67) {
-      console.log('Press Ctrl and C')
+    if (event.ctrlKey && event.keyCode === 188) {
+      console.log('Press Ctrl and ,')
       this.addNewNote()
     }
   }
@@ -128,7 +128,7 @@ class NoteTaker extends Component {
                 <div className='panel-body'>
                   <small>
                     <p>Shortcuts</p>
-                    <p>Ctrl + M: Switch Markdown, Ctrl + C: Create new note </p>
+                    <p>Ctrl + M: Switch Markdown, Ctrl + ,: Create new note </p>
                   </small>
                 </div>
               </div>
