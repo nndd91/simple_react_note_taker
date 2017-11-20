@@ -1,79 +1,60 @@
 import React, { Component } from 'react'
+import { Route, Switch } from 'react-router-dom'
+
 import '../assets/App.css'
-import SideBar from './sidebar'
-import Editor from './editor'
+
+// Components
+import NoteTaker from './note_taker'
+import Welcome from './welcome'
 
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      noteList: [],
-      activeNoteIndex: ''
+      name: ''
     }
-  }
-
-  addNewNote () {
-    let newList = this.state.noteList
-    newList.push({title: `Note ${newList.length + 1}`, content: ''})
-    this.setState({
-      noteList: newList,
-      activeNoteIndex: newList.length - 1
-    }, () => console.log(this.state))
-  }
-
-  editNote (noteIndex) {
-    this.setState({
-      activeNoteIndex: noteIndex
-    })
-  }
-
-  handleTitleChange (e) {
-    const { activeNoteIndex, noteList } = this.state
-    let note = { ...noteList[activeNoteIndex], title: e.target.value }
-    noteList[activeNoteIndex] = note
-    this.setState({
-      noteList: noteList
-    })
-  }
-
-  handleContentChange (e) {
-    const { activeNoteIndex, noteList } = this.state
-    let note = { ...noteList[activeNoteIndex], content: e.target.value }
-    noteList[activeNoteIndex] = note
-    this.setState({
-      noteList: noteList
-    })
   }
 
   render () {
     return (
-      <div className='App'>
+      <div className='container-fluid' style={{backgroundColor: '#2c3e4f', minHeight: '100vh', minWidth: '100vh'}}>
         <link
           href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
           rel='stylesheet'
         />
-        <h1>Simple Note Taker</h1>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-xs-3'>
-              <SideBar
-                noteList={this.state.noteList}
-                activeNoteIndex={this.state.activeNoteIndex}
-                addNewNote={() => this.addNewNote()}
-                editNote={(e) => this.editNote(e)}
-              />
-            </div>
-            <div className='col-xs-9'>
-              <Editor
-                activeNote={this.state.noteList[this.state.activeNoteIndex]}
-                handleTitleChange={(e) => this.handleTitleChange(e)}
-                handleContentChange={(e) => this.handleContentChange(e)}
-              />
-            </div>
-          </div>
-        </div>
+        <Switch>
+          <Route
+            path='/notetaker'
+            render={
+              props => (
+                <NoteTaker
+                  {...props}
+                  name={this.state.name}
+                />
+              )
+            } />
+          <Route
+            exact
+            path='/'
+            render={
+              props => (
+                <Welcome
+                  {...props}
+                  name={this.state.name}
+                  updateName={(v) => this.updateName(v)}
+                />
+              )
+            } />
+        </Switch>
       </div>
     )
+  }
+
+  updateName (value) {
+    console.log(value)
+    this.setState({
+      name: value
+    })
   }
 }
 

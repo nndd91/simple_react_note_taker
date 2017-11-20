@@ -34,7 +34,7 @@ class SideBar extends Component {
 
   render () {
     return (
-      <div>
+      <div style={{backgroundColor: '#eeeeee'}}>
         <ul style={{listStyleType: 'none', height: '480px', paddingLeft: '0px', overflowY: 'scroll'}}>
           {this.renderNotes(this.props.noteList)}
         </ul>

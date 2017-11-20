@@ -9,7 +9,7 @@ const Editor = (props) => {
     )
   } else {
     return (
-      <div className='form-group'>
+      <div className='form-group' style={{backgroundColor: '#eeeeee'}}>
         <input
           value={props.activeNote.title}
           style={{width: '100%'}}
